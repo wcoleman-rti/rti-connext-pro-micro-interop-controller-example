@@ -1,0 +1,44 @@
+module Mining {
+
+    typedef string<32> ComponentId;
+
+    enum MachineOperationalState {
+        UNKNOWN,
+        STOPPED,
+        RUNNING,
+        IDLE,
+        FAULTED
+    };
+
+    struct MachineStatus {
+        @key ComponentId machine_id;
+        MachineOperationalState operational_state;
+        boolean emergency_stop_active;
+        string<128> status_message;
+    };
+
+    struct Position {
+        @key ComponentId machine_id;
+        double latitude_deg;
+        double longitude_deg;
+        float altitude_m;
+        float heading_deg;
+        float speed_mps;
+    };
+
+    enum CommandType {
+        START,
+        STOP,
+        PAUSE,
+        RESUME,
+        RESET,
+        EMERGENCY_STOP
+    };
+
+    struct Command {
+        @key ComponentId machine_id;
+        ComponentId control_id;
+        CommandType command_type;
+        int64 issued_timestamp_ms;
+    };
+};
