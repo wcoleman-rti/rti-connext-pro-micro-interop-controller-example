@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(mining_dds_hands_on LANGUAGES C CXX)
+project(hpc_safety_control LANGUAGES C CXX)
 
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type")
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)

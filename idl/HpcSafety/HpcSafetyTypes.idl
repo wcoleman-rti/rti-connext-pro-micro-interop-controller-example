@@ -1,0 +1,70 @@
+module HpcSafety {
+    typedef unsigned long HpcId;
+    const HpcId HPC_ID_A = 1;
+    const HpcId HPC_ID_B = 2;
+
+    enum SafetyCommandKind {
+        SAFETY_COMMAND_NOOP,
+        SAFETY_COMMAND_ENABLE,
+        SAFETY_COMMAND_DISABLE,
+        SAFETY_COMMAND_RESET
+    };
+
+    enum HpcHealthState {
+        HPC_HEALTH_INITIALIZING,
+        HPC_HEALTH_READY,
+        HPC_HEALTH_ACTIVE,
+        HPC_HEALTH_FAULT,
+        HPC_HEALTH_OFFLINE
+    };
+
+    struct SafetyCommand {
+        @key HpcId target_hpc_id;
+        unsigned long command_sequence;
+        SafetyCommandKind command;
+    };
+
+    struct HpcHealth {
+        @key HpcId hpc_id;
+        unsigned long status_sequence;
+        HpcHealthState state;
+        unsigned long fault_code;
+        unsigned long uptime_ms;
+        unsigned long last_command_sequence_applied;
+    };
+
+    struct HpcTelemetry {
+        @key HpcId hpc_id;
+        unsigned long telemetry_sequence;
+        float cpu_load_percent;
+        unsigned long application_cycle_time_us;
+        unsigned long completed_cycles;
+    };
+};
+
+const long METRIC_ID_CPU_LOAD = 1;
+const long METRIC_ID_APPLICATION_CYCLE_TIME = 2;
+const long METRIC_ID_COMPLETED_CYCLES = 3;
+
+enum MetricValueKind {
+    BOOLEAN_TYPE,
+    INTEGER_TYPE,
+    FLOAT_TYPE,
+    STRING_TYPE
+};
+
+union MetricValue switch (MetricValueKind) {
+    case BOOLEAN_TYPE:
+        boolean boolean_value;
+    case INTEGER_TYPE:
+        long integer_value;
+    case FLOAT_TYPE:
+        float float_value;
+    case STRING_TYPE:
+        string string_value;
+};
+
+struct KeyValue {
+    @key long metricId;
+    MetricValue value;
+};

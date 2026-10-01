@@ -1256,6 +1256,7 @@ function(connextdds_rtiddsmag_run)
                 ${_APPGEN_XML_FILE}
         DEPENDS
             "${_APPGEN_XML_FILE}"
+            ${_APPGEN_REFERENCED_FILES}
     )
 
     # Get the name of the language variables (i.e.: C++/CLI -> CXXCLI).

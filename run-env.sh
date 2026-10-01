@@ -14,4 +14,4 @@ export RTIME_TARGET_NAME=x86_64leElfgcc13.3.0-Linux6
 
 
 export LD_LIBRARY_PATH="$NDDSHOME/lib/$CONNEXTDDS_ARCH:$RTIMEHOME/lib/$RTIME_TARGET_NAME:$RTIMEHOME/lib/${RTIME_TARGET_NAME%%-*}:$LD_LIBRARY_PATH"
-export NDDS_QOS_PROFILES="config/qos/MiningQos.xml;config/domain/MiningDomain.xml;config/service/Mining/ControlStation.xml"
+export NDDS_QOS_PROFILES="config/qos/HpcSafetyQos.xml;config/system/HpcSafetySystem.xml"
